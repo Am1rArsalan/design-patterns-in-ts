@@ -1,124 +1,54 @@
 // iterator pattern
 
-//lets assume that we are going to
-//build a web broweser .
-//in the web browser we have a concept of history
-
-/**
- * Stack.
- */
 class Stack<T> {
-  /**
-   * @type {T[]}
-   */
   private _stack: T[] = [];
 
-  /**
-   * pop.
-   *
-   * @returns {T | undefined}
-   */
   public pop(): T | undefined {
     let url = this._stack.pop();
     return url;
   }
 
-  /**
-   * push.
-   *
-   * @param {T} url
-   */
   public push(url: T) {
     this._stack.push(url);
   }
 
-  /**
-   * .
-   */
   public get stack() {
     return this._stack;
   }
 }
 
-/**
- * IIterator.
- */
 interface IIterator<T> {
-  /**
-   * @type {() => void}
-   */
   next: () => void;
-  /**
-   * @type {() => boolean}
-   */
   hasNext: () => boolean;
-  /**
-   * @type {() => T}
-   */
   current: () => T;
 }
 
-/**
- * BrowserHistory.
- */
 class BrowserHistory<T> {
   //private _urls : Stack<T> = new Stack<T>() ;
-  /**
-   * @type {T[]}
-   */
   private _urls: T[] = [];
 
-  /**
-   * constructor.
-   *
-   * @param {T[]} _urls
-   */
   constructor(_urls: T[]) {
     this._urls = _urls;
   }
 
-  /**
-   * pop.
-   *
-   * @returns {T | undefined}
-   */
   public pop(): T | undefined {
     let url = this._urls.pop();
     return url;
   }
 
-  /**
-   * push.
-   *
-   * @param {T} url
-   */
   public push(url: T) {
     this._urls.push(url);
   }
 
-  /**
-   * .
-   *
-   * @returns {T[]}
-   */
   public get urls(): T[] {
     return this._urls;
   }
 
-  /**
-   * createIterator.
-   *
-   * @returns {IIterator<string>}
-   */
   public createIterator(): IIterator<string> {
     //return new BrowserHistory.StackItrator(Object(this)) ;
     return new BrowserHistory.ArrayItrator(Object(this));
   }
 
-  /// Array Iterator
-  /**
-   * @type {}
-   */
   static ArrayItrator = class implements IIterator<string> {
     private history: BrowserHistory<string>;
     private index: number = 0;
