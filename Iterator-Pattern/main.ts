@@ -46,10 +46,10 @@ class BrowserHistory<T> {
 
   public createIterator(): IIterator<string> {
     //return new BrowserHistory.StackItrator(Object(this)) ;
-    return new BrowserHistory.ArrayItrator(Object(this));
+    return new BrowserHistory.ArrayIterator(Object(this));
   }
 
-  static ArrayItrator = class implements IIterator<string> {
+  static ArrayIterator = class implements IIterator<string> {
     private history: BrowserHistory<string>;
     private index: number = 0;
 
